@@ -9,6 +9,7 @@
 
 
 /*                          Task 1
+Git branch: Task1_intToStr
 Create function for converting number to string. Don't use standard C library
 Please, take into account, that function must process full range INT value
 */
@@ -23,9 +24,9 @@ void main(char **inArg, int numArg)
     int32_t task1Num1 = 23;
 	int32_t task1Num2 = 1000001;
 	
-	printf("**************TASK 1****************\n");
+    printf("**************TASK 1****************\n");
 	
     printf("num1 = %s\n", task1_intToStr(task1Num1));
-	printf("num2 = %s\n", task1_intToStr(task1Num2));
+    printf("num2 = %s\n", task1_intToStr(task1Num2));
 
 }
