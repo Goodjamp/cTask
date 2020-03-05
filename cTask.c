@@ -39,6 +39,7 @@ uint8_t *task1_intToStr(int32_t number)
 
 void main(char **inArg, int numArg)
 {
+
     int32_t task1Num1 = 23;
 	int32_t task1Num2 = 1000001;
 
