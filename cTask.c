@@ -5,7 +5,7 @@
 
 #include "stdio.h"
 #include "stdint.h"
-
+#include "stdlib.h"
 
 
 /*                          Task 1
@@ -16,36 +16,48 @@ Please, take into account, that function must process full range INT value
 
 uint8_t *task1_intToStr(int32_t number)
 {
-    static uint8_t buffer[12];
-    uint8_t flag = 0;
-    if(number != 0){
-        if(number < 0){
-            flag = 1;
-            buffer[0] = '-';
-            number =~number+1;
-        }
-        for (int8_t i = 9+flag; i>=0+flag; i--)
+    if(number != 0)
+    {
+        int32_t TempNumber = number;
+        uint8_t Flag_Minus = 0;
+        uint8_t Size_Buffer = 0;
+        do
         {
-            buffer[i] = number % 10 + '0';
+            TempNumber /= 10;
+            Size_Buffer++;
+        }while (TempNumber != 0);
+
+        if(number < 0)
+        {
+            Size_Buffer += 2;
+            Flag_Minus = 1;
+            number = ~number + 1;
+        }else
+        {
+            Size_Buffer += 1;
+        }
+
+        uint8_t* Buffer = (uint8_t*)malloc(sizeof(uint8_t) * Size_Buffer);
+
+        if(Flag_Minus == 1)
+        {
+            Buffer[0] = '-';
+        }
+
+        for (int8_t i = Size_Buffer - 2; i >= 0 + Flag_Minus; i--)
+        {
+            Buffer[i] = number % 10 + '0';
             number /= 10;
         }
-        for (int8_t i = 0+flag; i<=9+flag; i++)
-        {
-            if (buffer[0+flag] == 0 + '0')
-            {
-                for(int8_t q = 0+flag; q<=9+flag; q++)
-                {
-                   buffer[q] = buffer[q+1];
-                }
-                buffer[10+flag] = '\0';
-            }
-        }
-        buffer[10+flag] = '\0';
-    }else{
-        buffer[0] = 0 +'0';
-        buffer[1] = '\0';
+        Buffer[Size_Buffer - 1] = '\0';
+        return Buffer;
+    }else
+    {
+        uint8_t* Buffer = (uint8_t*)malloc(sizeof(uint8_t) * 2);
+        Buffer[0] = '0';
+        Buffer[1] = '\0';
+        return Buffer;
     }
-    return buffer;
 }
 
 void main(char **inArg, int numArg)
