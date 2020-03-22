@@ -60,9 +60,25 @@ uint8_t *task1_intToStr(int32_t number)
     }
 }
 
-void main(char **inArg, int numArg)
-{
+/*                          Task 2
+Git branch: Task2_symbolFrqHistogram
+Create function for build histogram the number of symbols on the null terminated string.
+The symbols order must be from the most frequently symbol to the less frequently symbol
+Histogram example for sente string "A.Aa-.aA"
 
+*    
+***   
+****
+Aa.-
+
+*/
+void Task2_symbolFrqHistogram(uint8_t buff[])
+{
+}
+
+int main(int numArg, char **inArg)
+{
+    /***************TASK 1*****************/
     int32_t task1Num1 = -23;
 	int32_t task1Num2 = 1000001;
 	int32_t task1Num3 = 0;
@@ -71,5 +87,11 @@ void main(char **inArg, int numArg)
     printf("num1 = %s\n", task1_intToStr(task1Num1));
     printf("num2 = %s\n", task1_intToStr(task1Num2));
     printf("num3 = %s\n", task1_intToStr(task1Num3));
+	
+	/***************TASK 2*****************/
+	uint8_t testString[] = "Create function for build histogram the number of symbols on the null terminated string.";
+	
+	Task2_symbolFrqHistogram(testString);
+	
     return 0;
 }
