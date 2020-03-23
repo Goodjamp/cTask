@@ -6,7 +6,7 @@
 #include "stdio.h"
 #include "stdint.h"
 #include "stdlib.h"
-
+#include "string.h"
 
 /*                          Task 1
 Git branch: Task1_intToStr
@@ -66,14 +66,87 @@ Create function for build histogram the number of symbols on the null terminated
 The symbols order must be from the most frequently symbol to the less frequently symbol
 Histogram example for sente string "A.Aa-.aA"
 
-*    
-***   
+*
+***
 ****
 Aa.-
 
 */
 void Task2_symbolFrqHistogram(uint8_t buff[])
 {
+    char TempBuffer[62]; // Array for A-Z, a-z, 0-9 and symbols ".", "!", "?", ":", "-", ",", ";", "(", ")", " "
+    char OutputBuffer[62][2];
+    uint8_t Counter_1, Counter_2 = 0;
+    uint8_t tmp, tmp1 = 0;
+    uint8_t CounterCompare = 0;
+// filling array symbols from string
+    while(buff[Counter_1] != '\0')
+    {
+        if(strchr(TempBuffer, buff[Counter_1]) == 0)
+        {
+            TempBuffer[Counter_2] = buff[Counter_1];
+            Counter_2 ++;
+        }
+        Counter_1 ++;
+    }
+    TempBuffer[Counter_2] = '\0';
+    Counter_2 = 0;
+    Counter_1 = 0;
+//calculate how often characters occur
+    while(TempBuffer[Counter_2] != '\0')
+    {
+        while(buff[Counter_1] != '\0')
+        {
+            if(TempBuffer[Counter_2] == buff[Counter_1])
+            {
+                CounterCompare ++;
+            }
+            Counter_1 ++;
+        }
+        OutputBuffer[Counter_2][0] = TempBuffer[Counter_2];
+        OutputBuffer[Counter_2][1] = CounterCompare;
+        CounterCompare = 0;
+        Counter_1 = 0;
+        Counter_2 ++;
+    }
+    OutputBuffer[Counter_2][0] = '\0';
+    OutputBuffer[Counter_2][1] = '\0';
+// sorting array bubble method
+    while(OutputBuffer[Counter_1][1] != '\0')
+    {
+        while(OutputBuffer[Counter_2][1] != '\0')
+        {
+            if(OutputBuffer[Counter_2][1] < OutputBuffer[Counter_2 + 1][1])
+            {
+                tmp = OutputBuffer[Counter_2][1];
+                OutputBuffer[Counter_2][1] = OutputBuffer[Counter_2 + 1][1];
+                OutputBuffer[Counter_2 + 1][1] = tmp;
+
+                tmp1 = OutputBuffer[Counter_2][0];
+                OutputBuffer[Counter_2][0] = OutputBuffer[Counter_2 + 1][0];
+                OutputBuffer[Counter_2 + 1][0] = tmp1;
+            }
+            Counter_2 ++;
+        }
+        Counter_1 ++;
+        Counter_2 = 0;
+    }
+// print numbers of frequently symbols
+    Counter_1 = 0;
+    while (OutputBuffer[Counter_1][1] != '\0')
+    {
+        printf("%d", OutputBuffer[Counter_1][1]);
+        Counter_1 ++;
+    }
+    printf("\n");
+// print symbols
+    Counter_1 = 0;
+    while (OutputBuffer[Counter_1][0] != '\0')
+    {
+        printf("%c", OutputBuffer[Counter_1][0]);
+        Counter_1 ++;
+    }
+    printf("\n");
 }
 
 int main(int numArg, char **inArg)
@@ -87,11 +160,12 @@ int main(int numArg, char **inArg)
     printf("num1 = %s\n", task1_intToStr(task1Num1));
     printf("num2 = %s\n", task1_intToStr(task1Num2));
     printf("num3 = %s\n", task1_intToStr(task1Num3));
-	
+
 	/***************TASK 2*****************/
 	uint8_t testString[] = "Create function for build histogram the number of symbols on the null terminated string.";
-	
+//    uint8_t testString[] = "AbcABccabcacaba";// should print: cabAB
+	printf("**************TASK 2****************\n");
 	Task2_symbolFrqHistogram(testString);
-	
+
     return 0;
 }
