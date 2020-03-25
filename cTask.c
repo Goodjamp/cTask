@@ -135,10 +135,13 @@ void Task2_symbolFrqHistogram(uint8_t buff[])
     Counter_1 = 0;
     while (OutputBuffer[Counter_1][1] != '\0')
     {
-        printf("%d", OutputBuffer[Counter_1][1]);
+        for(uint8_t i = 1; i <= OutputBuffer[Counter_1][1]; i++)
+        {
+            printf("*");
+        }
         Counter_1 ++;
+        printf("\n");
     }
-    printf("\n");
 // print symbols
     Counter_1 = 0;
     while (OutputBuffer[Counter_1][0] != '\0')
