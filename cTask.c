@@ -131,15 +131,19 @@ void Task2_symbolFrqHistogram(uint8_t buff[])
         Counter_1 ++;
         Counter_2 = 0;
     }
-// print numbers of frequently symbols
+// print histogram of frequently symbols
     Counter_1 = 0;
-    while (OutputBuffer[Counter_1][1] != '\0')
+    for(uint8_t i = OutputBuffer[0][1]; i >= 1; i--)
     {
-        for(uint8_t i = 1; i <= OutputBuffer[Counter_1][1]; i++)
+        while (OutputBuffer[Counter_1][1] != '\0')
         {
-            printf("*");
+            if (OutputBuffer[Counter_1][1] >= i)
+            {
+                printf("*");
+            }
+            Counter_1 ++;
         }
-        Counter_1 ++;
+        Counter_1 = 0;
         printf("\n");
     }
 // print symbols
